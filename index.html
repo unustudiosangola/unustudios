@@ -1012,29 +1012,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const lista = (intervalos[dataISO] || []).slice().sort((a,b) => a.inicio - b.inicio);
 
     for (const r of lista) {
-      // Sobreposição directa com reserva
       const meuInicio = inicioMin - BUFFER_MIN;
       const meuFim    = fimMin + BUFFER_MIN;
       if (!(meuFim <= r.inicio || meuInicio >= r.fim)) {
         // Calcular duração máxima possível a partir desta hora
         let duracaoMax = 0;
-        for (const r2 of lista) {
-          if (r2.inicio >= inicioMin + BUFFER_MIN) {
-            // Há espaço até esta reserva (com buffer antes dela)
-            const espacoMin = (r2.inicio - BUFFER_MIN) - inicioMin;
-            if (espacoMin > 0) duracaoMax = Math.floor(espacoMin / 60);
-            break;
-          }
-        }
-        // Se não há reserva a seguir, espaço até às 18h (fim do dia)
-        if (duracaoMax === 0 && !lista.some(r2 => r2.inicio > inicioMin)) {
-          const espacoMin = (18 * 60) - inicioMin;
+        // Se esta hora é antes da reserva em conflito, calcular espaço até ela
+        if (inicioMin + BUFFER_MIN <= r.inicio) {
+          const espacoMin = (r.inicio - BUFFER_MIN) - inicioMin;
           if (espacoMin > 0) duracaoMax = Math.floor(espacoMin / 60);
         }
         return { duracaoMax, reservaConflito: r };
       }
     }
-    return null; // disponível
+    return null;
   }
 
   document.getElementById('dateInput').addEventListener('change', function() {
@@ -1057,8 +1048,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!dataISO) return;
     const select = document.getElementById('timeSelect');
     const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
-    const todosHorarios = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
-    const horasOcupadas = ocupados[dataISO] || [];
+    const todosHorarios = [
+      '08:00','08:30','09:00','09:30','10:00','10:30',
+      '11:00','11:30','12:00','12:30','13:00','13:30',
+      '14:00','14:30','15:00','15:30','16:00','16:30',
+      '17:00','17:30','18:00'
+    ];
 
     select.innerHTML = '<option value="">Seleccionar horário...</option>';
 
@@ -1066,24 +1061,21 @@ document.addEventListener('DOMContentLoaded', function() {
     todosHorarios.forEach(h => {
       const opt = document.createElement('option');
       opt.value = h;
-      // Hora fora do horário útil (sessão não caberia antes das 19h)
-      const horaNum = parseInt(h.split(":")[0]);
-      if (horaNum + duracao > 19) {
+      const [hh, mm] = h.split(":").map(Number);
+      const inicioMin = hh * 60 + mm;
+      const fimMin = inicioMin + duracao * 60;
+      // Não permitir terminar depois das 19h
+      if (fimMin > 19 * 60) {
         opt.textContent = h + ' — Fora do horário';
         opt.disabled = true;
         opt.style.color = '#bbb';
-      } else if (horasOcupadas.includes(h)) {
-        opt.textContent = h + ' — Indisponível';
-        opt.disabled = true;
-        opt.style.color = '#bbb';
       } else {
-        // Verificar se a duração encaixa sem conflito
         const conflito = verificarSlot(dataISO, h, duracao);
         if (conflito) {
           if (conflito.duracaoMax > 0) {
             opt.textContent = h + ' — Máx. ' + conflito.duracaoMax + 'h disponível';
           } else {
-            opt.textContent = h + ' — Indisponível para ' + duracao + 'h';
+            opt.textContent = h + ' — Indisponível';
           }
           opt.disabled = true;
           opt.style.color = '#bbb';
