@@ -978,17 +978,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── URL DO WEBHOOK (substituir após publicar o Apps Script) ──
   const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxfxQwB-Cu3pCwfonEnxg-K_YhudxAQcMr4mo8DJcuoPUdMHkh9Kk5DABFBuIRAySe3/exec";
   const DISP_URL = WEBHOOK_URL + "?action=disponibilidade";
+  const BUFFER_MIN = 30;
 
   let ocupados = {};
+  let intervalos = {};
 
-  // Carregar disponibilidade
   function carregarDisponibilidade(callback) {
     fetch(DISP_URL)
       .then(r => r.json())
       .then(res => {
         if (res.status === "ok") {
           ocupados = res.ocupados || {};
-          console.log("Disponibilidade carregada:", ocupados);
+          intervalos = res.intervalos || {};
+          console.log("Ocupados:", ocupados);
+          console.log("Intervalos:", intervalos);
         }
         if (callback) callback();
       })
@@ -998,31 +1001,64 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Carregar ao abrir a página
   carregarDisponibilidade();
 
-  // Quando muda a data, actualizar horários disponíveis
+  // Verificar se um slot (hora + duração) colide com reservas existentes
+  // Retorna null se disponível, ou {duracaoMax, proximaReserva} se ocupado
+  function verificarSlot(dataISO, horaStr, duracaoHoras) {
+    const [h, m] = horaStr.split(":").map(Number);
+    const inicioMin = h * 60 + (m || 0);
+    const fimMin = inicioMin + duracaoHoras * 60;
+    const lista = (intervalos[dataISO] || []).slice().sort((a,b) => a.inicio - b.inicio);
+
+    for (const r of lista) {
+      // Sobreposição directa com reserva
+      const meuInicio = inicioMin - BUFFER_MIN;
+      const meuFim    = fimMin + BUFFER_MIN;
+      if (!(meuFim <= r.inicio || meuInicio >= r.fim)) {
+        // Calcular duração máxima possível a partir desta hora
+        let duracaoMax = 0;
+        for (const r2 of lista) {
+          if (r2.inicio >= inicioMin + BUFFER_MIN) {
+            // Há espaço até esta reserva (com buffer antes dela)
+            const espacoMin = (r2.inicio - BUFFER_MIN) - inicioMin;
+            if (espacoMin > 0) duracaoMax = Math.floor(espacoMin / 60);
+            break;
+          }
+        }
+        // Se não há reserva a seguir, espaço até às 18h (fim do dia)
+        if (duracaoMax === 0 && !lista.some(r2 => r2.inicio > inicioMin)) {
+          const espacoMin = (18 * 60) - inicioMin;
+          if (espacoMin > 0) duracaoMax = Math.floor(espacoMin / 60);
+        }
+        return { duracaoMax, reservaConflito: r };
+      }
+    }
+    return null; // disponível
+  }
+
   document.getElementById('dateInput').addEventListener('change', function() {
     atualizarHorarios(this.value);
   });
   document.getElementById('dateInput').addEventListener('input', function() {
     atualizarHorarios(this.value);
   });
-
-  // Recarregar quando o utilizador clica no campo de data
   document.getElementById('dateInput').addEventListener('focus', function() {
     carregarDisponibilidade(() => {
       if (this.value) atualizarHorarios(this.value);
     });
   });
+  document.getElementById('durationSelect').addEventListener('change', function() {
+    const data = document.getElementById('dateInput').value;
+    if (data) atualizarHorarios(data);
+  });
 
   function atualizarHorarios(dataISO) {
     if (!dataISO) return;
     const select = document.getElementById('timeSelect');
+    const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
     const todosHorarios = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
     const horasOcupadas = ocupados[dataISO] || [];
-
-    console.log("Data:", dataISO, "| Ocupadas:", horasOcupadas);
 
     select.innerHTML = '<option value="">Seleccionar horário...</option>';
 
@@ -1030,30 +1066,53 @@ document.addEventListener('DOMContentLoaded', function() {
     todosHorarios.forEach(h => {
       const opt = document.createElement('option');
       opt.value = h;
-      if (horasOcupadas.includes(h)) {
+      // Hora fora do horário útil (sessão não caberia antes das 19h)
+      const horaNum = parseInt(h.split(":")[0]);
+      if (horaNum + duracao > 19) {
+        opt.textContent = h + ' — Fora do horário';
+        opt.disabled = true;
+        opt.style.color = '#bbb';
+      } else if (horasOcupadas.includes(h)) {
         opt.textContent = h + ' — Indisponível';
         opt.disabled = true;
         opt.style.color = '#bbb';
       } else {
-        opt.textContent = h;
-        algumDisponivel = true;
+        // Verificar se a duração encaixa sem conflito
+        const conflito = verificarSlot(dataISO, h, duracao);
+        if (conflito) {
+          if (conflito.duracaoMax > 0) {
+            opt.textContent = h + ' — Máx. ' + conflito.duracaoMax + 'h disponível';
+          } else {
+            opt.textContent = h + ' — Indisponível para ' + duracao + 'h';
+          }
+          opt.disabled = true;
+          opt.style.color = '#bbb';
+        } else {
+          opt.textContent = h;
+          algumDisponivel = true;
+        }
       }
       select.appendChild(opt);
     });
 
     if (!algumDisponivel) {
-      select.innerHTML = '<option value="">Sem horários disponíveis nesta data</option>';
+      select.innerHTML = '<option value="">Sem horários disponíveis para ' + duracao + 'h nesta data</option>';
     }
   }
 
-  // Bloquear submissão se hora seleccionada estiver ocupada
   function validarDisponibilidade() {
     const data = document.getElementById('dateInput').value;
     const hora = document.getElementById('timeSelect').value;
+    const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
     if (!data || !hora) return true;
-    const horasOcupadas = ocupados[data] || [];
-    if (horasOcupadas.includes(hora)) {
-      alert('O horário ' + hora + ' já está ocupado em ' + data + '. Por favor escolha outro horário.');
+
+    const conflito = verificarSlot(data, hora, duracao);
+    if (conflito) {
+      if (conflito.duracaoMax > 0) {
+        alert('O horário ' + hora + ' não tem ' + duracao + 'h disponíveis nesta data. Duração máxima possível a partir desta hora: ' + conflito.duracaoMax + 'h. Por favor escolha outra hora ou reduza a duração.');
+      } else {
+        alert('O horário ' + hora + ' não está disponível em ' + data + '. Por favor escolha outro horário.');
+      }
       return false;
     }
     return true;
