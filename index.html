@@ -1,786 +1,438 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNU Studios — Reservar</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Outfit:wght@300;400;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNU Studios — Espaço para criar sem limites · Luanda</title>
+<meta name="description" content="Estúdio fotográfico profissional em Luanda. Equipamento Godox completo, 5 fundos infinitos, assistente incluído. 12.000 Kz/hora.">
+<meta property="og:title" content="UNU Studios — Espaço para criar sem limites">
+<meta property="og:description" content="Estúdio fotográfico profissional em Luanda · Patriota">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;700;900&family=DM+Mono:wght@400;500&family=Nunito:wght@900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --cream: #F5F0E8;
-    --black: #0D0D0D;
-    --warm: #C8B89A;
+    --bg: #F5F0E8;
+    --fg: #1A1A1A;
     --muted: #8A8070;
-    --border: #E0D8CC;
-    --accent: #1A1A1A;
+    --accent: #C8B89A;
+    --line: #E0D8CC;
+    --soft: #FAF6EE;
+    --green: #155724;
+    --green-bg: #D4EDDA;
+    --red: #721C24;
+    --red-bg: #F8D7DA;
   }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
-    background: var(--cream);
-    color: var(--black);
-    font-family: 'Outfit', sans-serif;
-    font-size: 18px;
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: 'Outfit', system-ui, sans-serif;
+    background: var(--bg); color: var(--fg);
+    -webkit-font-smoothing: antialiased; line-height: 1.5;
   }
-
-  /* GRAIN OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.5;
-  }
-
-  /* NAV */
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+ 
+  /* ========== NAV ========== */
   nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 4rem;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: rgba(245, 240, 232, 0.92);
-    backdrop-filter: blur(12px);
-    z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
   }
-
-  .logo {
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-
-  .logo span { color: var(--muted); font-weight: 300; }
-
-  nav a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  nav a:hover { color: var(--black); }
-
-  /* HERO */
+  .logo { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 28px; letter-spacing: -1.5px; }
+  .nav-links { display: flex; gap: 32px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links a { text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+ 
+  /* ========== HERO ========== */
   .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 85vh;
-    border-bottom: 1px solid var(--border);
+    position: relative; height: 100vh; min-height: 700px; width: 100%; overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.55) 100%),
+      url('fotos_hero/web/hero.jpg') center/cover no-repeat;
+    background-color: #2a2520;
+    display: flex; align-items: flex-end; color: #F5F0E8;
   }
-
-  .hero-left {
-    padding: 6rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-right: 1px solid var(--border);
+  .hero-content {
+    width: 100%; padding: 60px 40px 80px;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
   }
-
-  .hero-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2rem;
-  }
-
   .hero-title {
-    font-size: clamp(3.5rem, 6vw, 6.5rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 2.5rem;
+    font-weight: 200; font-size: clamp(40px, 6vw, 88px); line-height: 0.95;
+    letter-spacing: -2px; max-width: 14ch;
   }
-
-  .hero-title em {
-    font-style: normal;
-    font-weight: 300;
-    color: var(--muted);
+  .hero-title strong { font-weight: 700; }
+  .hero-meta {
+    font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; text-align: right; opacity: 0.85; line-height: 2;
   }
-
-  .hero-desc {
-    font-size: 1.35rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 440px;
-    margin-bottom: 3rem;
+  .hero-meta span { display: block; }
+ 
+  /* ========== SECÇÃO PADRÃO ========== */
+  .secao { padding: 120px 40px; max-width: 1400px; margin: 0 auto; }
+  .secao-num {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
   }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--black);
-    color: var(--cream);
-    padding: 1.2rem 2.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    width: fit-content;
+  .secao-titulo {
+    font-weight: 300; font-size: clamp(36px, 4vw, 56px);
+    letter-spacing: -1px; line-height: 1.05; margin-bottom: 60px; max-width: 22ch;
   }
-
-  .cta-btn:hover {
-    background: var(--warm);
-    color: var(--black);
-    transform: translateY(-2px);
+  .secao-titulo strong { font-weight: 700; }
+ 
+  /* ========== O ESPAÇO — Set & Bastidores ========== */
+  .subseccao { margin-bottom: 80px; }
+  .subseccao-header {
+    display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px;
+    border-bottom: 1px solid var(--line); padding-bottom: 12px;
   }
-
-  .cta-btn .arrow {
-    transition: transform 0.3s;
+  .subseccao-titulo { font-weight: 700; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; }
+  .subseccao-desc { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; flex: 1; }
+ 
+  .gal { display: grid; gap: 8px; }
+  .gal-4 { grid-template-columns: repeat(4, 1fr); }
+  .gal-mosaico-6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; }
+  .gal-mosaico-6 .x1 { grid-row: span 2; }
+ 
+  .foto { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #2a2520; }
+  .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .foto:hover img { transform: scale(1.03); }
+  .gal-4 .foto { aspect-ratio: 4/5; }
+  .gal-mosaico-6 .foto { aspect-ratio: auto; height: 100%; }
+ 
+  /* ========== COMO FUNCIONA ========== */
+  .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .passo {
+    border-top: 2px solid var(--fg); padding-top: 16px;
   }
-  .cta-btn:hover .arrow { transform: translateX(6px); }
-
-  .hero-right {
-    position: relative;
-    background: var(--black);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .passo-num { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--muted); }
+  .passo-titulo { font-weight: 700; font-size: 18px; margin: 8px 0 12px; letter-spacing: -0.3px; }
+  .passo-desc { font-size: 14px; color: #4a4a4a; line-height: 1.6; }
+ 
+  /* ========== PROCESSO ========== */
+  .processo { background: var(--fg); color: var(--bg); padding: 120px 40px; }
+  .processo-inner { max-width: 1400px; margin: 0 auto; }
+  .processo .secao-num { color: var(--accent); }
+  .processo-frase {
+    font-weight: 200; font-size: clamp(28px, 3.5vw, 48px); line-height: 1.2;
+    letter-spacing: -1px; max-width: 26ch; margin-bottom: 60px;
   }
-
-  .hero-visual {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .processo-frase em { font-style: normal; color: var(--accent); }
+  .processo-imagem {
+    width: 100%; height: 540px; overflow: hidden;
   }
-
-  .hero-circle {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 1px solid rgba(245, 240, 232, 0.15);
-    position: absolute;
-    animation: rotateSlow 20s linear infinite;
+  .processo-imagem img { width: 100%; height: 100%; object-fit: cover; }
+ 
+  /* ========== SERVIÇOS ========== */
+  .servicos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .servico {
+    border: 1px solid var(--line); padding: 32px; background: var(--soft);
+    border-radius: 4px; display: flex; flex-direction: column;
   }
-
-  .hero-circle:nth-child(2) {
-    width: 200px;
-    height: 200px;
-    border-color: rgba(200, 184, 154, 0.2);
-    animation-direction: reverse;
-    animation-duration: 15s;
+  .servico h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+  .servico .preco { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; margin-bottom: 8px; }
+  .servico .por { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+  .servico ul { list-style: none; flex: 1; font-size: 14px; line-height: 1.8; }
+  .servico ul li::before { content: "— "; color: var(--accent); }
+  .servico .destaque {
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--muted);
   }
-
-  .hero-circle:nth-child(3) {
-    width: 420px;
-    height: 420px;
-    border-color: rgba(245, 240, 232, 0.05);
-    animation-duration: 30s;
+ 
+  /* ========== FORMULÁRIO ========== */
+  .form-wrap { max-width: 720px; margin: 0 auto; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  label { display: block; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number], select, textarea {
+    width: 100%; padding: 12px 14px; font-family: inherit; font-size: 15px;
+    background: var(--soft); border: 1px solid var(--line); border-radius: 3px;
+    color: var(--fg); transition: border-color 0.2s;
   }
-
-  .hero-center-text {
-    text-align: center;
-    z-index: 2;
-    color: var(--cream);
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--fg); }
+  textarea { min-height: 100px; resize: vertical; }
+  .form-msg { padding: 16px; background: var(--green-bg); color: var(--green); border-radius: 4px; margin-top: 16px; display: none; }
+  .form-msg.error { background: var(--red-bg); color: var(--red); }
+  .form-msg.show { display: block; }
+ 
+  /* ========== PAGAMENTO ========== */
+  .pagamento-box {
+    background: var(--soft); border: 1px solid var(--line);
+    padding: 32px; border-radius: 4px; max-width: 720px; margin: 0 auto;
   }
-
-  .hero-center-text .big-num {
-    font-size: 4.5rem;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.05em;
-    opacity: 0.9;
+  .pagamento-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .pagamento-row:last-child { border-bottom: 0; }
+  .pagamento-row span:first-child { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .pagamento-row span:last-child { font-weight: 500; }
+  .copy-btn {
+    background: none; border: 0; cursor: pointer; padding: 0 0 0 8px;
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent);
+    letter-spacing: 1px; text-transform: uppercase;
   }
-
-  .hero-center-text .unit {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: var(--warm);
-    text-transform: uppercase;
-    margin-top: 0.5rem;
+  .copy-btn:hover { color: var(--fg); }
+ 
+  /* ========== CONTACTO ========== */
+  .contacto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .contacto-item {
+    border: 1px solid var(--line); padding: 32px; text-align: center;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+    border-radius: 4px;
   }
-
-  @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  .contacto-item:hover { background: var(--soft); transform: translateY(-2px); }
+  .contacto-item .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .contacto-item .valor { font-size: 18px; font-weight: 500; }
+ 
+  /* ========== CTA ========== */
+  .btn {
+    display: inline-block; padding: 18px 48px; background: var(--fg); color: var(--bg);
+    text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px;
+    letter-spacing: 3px; text-transform: uppercase; border-radius: 2px;
+    transition: transform 0.2s; border: 0; cursor: pointer;
   }
-
-  /* SERVIÇOS */
-  .section {
-    padding: 6rem 4rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 2rem;
-    margin-bottom: 4rem;
-  }
-
-  .section-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.2em;
-  }
-
-  .section-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid var(--border);
-  }
-
-  .service-card {
-    padding: 3rem 2.5rem;
-    border-right: 1px solid var(--border);
-    transition: background 0.4s;
-    cursor: default;
-  }
-
-  .service-card:last-child { border-right: none; }
-
-  .service-card:hover {
-    background: var(--black);
-    color: var(--cream);
-  }
-
-  .service-card:hover .service-price { color: var(--warm); }
-  .service-card:hover .service-desc { color: rgba(245,240,232,0.6); }
-  .service-card:hover .service-tag { border-color: rgba(245,240,232,0.2); color: rgba(245,240,232,0.5); }
-
-  .service-tag {
-    display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
-    padding: 0.35rem 0.8rem;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-    transition: all 0.4s;
-  }
-
-  .service-name {
-    font-size: 2rem;
-    font-weight: 400;
-    margin-bottom: 0.8rem;
-    letter-spacing: -0.01em;
-  }
-
-  .service-price {
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: var(--black);
-    margin-bottom: 1.2rem;
-    transition: color 0.4s;
-    letter-spacing: -0.02em;
-  }
-
-  .service-price span {
-    font-size: 0.9rem;
-    font-family: 'DM Mono', monospace;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-  }
-
-  .service-desc {
-    font-size: 1.1rem;
-    color: var(--muted);
-    line-height: 1.7;
-    transition: color 0.4s;
-  }
-
-  /* REGRAS */
-  .rules-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-
-  .rule-item {
-    display: flex;
-    gap: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .rule-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--warm);
-    min-width: 30px;
-    padding-top: 0.3rem;
-  }
-
-  .rule-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .rule-text {
-    font-size: 1.1rem;
-    color: var(--muted);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* FORMULÁRIO */
-  .booking-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .booking-info {
-    padding: 6rem 4rem;
-    border-right: 1px solid var(--border);
-    background: var(--black);
-    color: var(--cream);
-  }
-
-  .booking-info .section-title { color: var(--cream); }
-  .booking-info .section-num { color: var(--warm); }
-
-  .payment-box {
-    margin-top: 3rem;
-    padding: 2rem;
-    border: 1px solid rgba(245,240,232,0.1);
-  }
-
-  .payment-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--warm);
-    margin-bottom: 1rem;
-  }
-
-  .payment-method {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(245,240,232,0.08);
-    font-size: 1rem;
-    font-weight: 300;
-    color: rgba(245,240,232,0.8);
-  }
-
-  .payment-method:last-child { border-bottom: none; }
-
-  .payment-icon {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(245,240,232,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--warm);
-    flex-shrink: 0;
-  }
-
-  .booking-form {
-    padding: 6rem 4rem;
-  }
-
-  .form-group {
-    margin-bottom: 2rem;
-  }
-
-  .form-label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-  }
-
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    padding: 0.8rem 0;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
-    color: var(--black);
-    outline: none;
-    transition: border-color 0.3s;
-  }
-
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: var(--black);
-  }
-
-  .form-select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8070' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0 center;
-  }
-
-  .form-textarea { resize: none; height: 80px; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-
-  .submit-btn {
-    width: 100%;
-    background: var(--black);
-    color: var(--cream);
-    border: none;
-    padding: 1.4rem 2rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.4s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .submit-btn:hover {
-    background: var(--warm);
-    color: var(--black);
-  }
-
-  /* TOTAL ESTIMADO */
-  .total-display {
-    background: var(--black);
-    color: var(--cream);
-    padding: 1.5rem 2rem;
-    margin-top: 1.5rem;
-    display: none;
-  }
-
-  .total-display.show { display: flex; justify-content: space-between; align-items: center; }
-
-  .total-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--warm);
-  }
-
-  .total-value {
-    font-size: 1.8rem;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-  }
-
-  /* SUCCESS */
-  .success-msg {
-    display: none;
-    background: #0D0D0D;
-    color: var(--cream);
-    padding: 2rem;
-    margin-top: 1.5rem;
-    border-left: 3px solid var(--warm);
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .success-msg.show { display: block; }
-
-  /* FOOTER */
+  .btn:hover { transform: translateY(-2px); }
+  .btn-block { display: block; width: 100%; padding: 20px; text-align: center; }
+ 
+  /* ========== FOOTER ========== */
   footer {
-    padding: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-top: 1px solid var(--line); padding: 40px;
+    text-align: center; font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted); letter-spacing: 1.5px; line-height: 2;
   }
-
-  .footer-logo {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-
-  .footer-contact {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-align: right;
-    line-height: 1.8;
-  }
-
-  .footer-tagline {
-    font-size: 0.95rem;
-    color: var(--muted);
-    font-style: italic;
-    font-weight: 300;
-  }
-
-  /* ANIM */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-left > * {
-    animation: fadeUp 0.8s ease forwards;
-    opacity: 0;
-  }
-
-  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
-  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
-  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
-
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { height: 300px; }
-    .hero-left { padding: 4rem 2rem; }
-    .section { padding: 4rem 2rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .service-card { border-right: none; border-bottom: 1px solid var(--border); }
-    .booking-section { grid-template-columns: 1fr; }
-    .booking-info { padding: 4rem 2rem; }
-    .booking-form { padding: 4rem 2rem; }
-    .rules-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
-    footer { flex-direction: column; gap: 2rem; text-align: center; }
-    .footer-contact { text-align: center; }
+ 
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 800px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .secao { padding: 80px 20px; }
+    .processo { padding: 80px 20px; }
+    .hero-content { grid-template-columns: 1fr; padding: 40px 20px; }
+    .hero-meta { text-align: left; }
+    .gal-4 { grid-template-columns: repeat(2, 1fr); }
+    .gal-mosaico-6 { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .gal-mosaico-6 > * { grid-column: span 1 !important; grid-row: span 1 !important; }
+    .gal-mosaico-6 .foto { aspect-ratio: 4/3; height: auto; }
+    .processo-imagem { height: 320px; }
+    .passos, .servicos-grid, .contacto-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
+ 
 <nav>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 155" height="46"><text x="50%" y="122" text-anchor="middle" font-family="'Nunito','Outfit',Arial,sans-serif" font-weight="900" font-size="148" letter-spacing="-4" fill="#1A1A1A">UNU</text></svg>
-  <a href="#contacto">Contacto</a>
-  <a href="#reservar">Reservar Agora ↓</a>
+  <div class="logo">UNU</div>
+  <div class="nav-links">
+    <a href="#espaco">Espaço</a>
+    <a href="#funciona">Como Funciona</a>
+    <a href="#processo">Processo</a>
+    <a href="#reservar">Reservar</a>
+    <a href="#contacto">Contacto</a>
+  </div>
 </nav>
-
+ 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <p class="hero-label">Estúdio Criativo · Luanda, Angola</p>
-    <h1 class="hero-title">Espaço para<br>criar <em>sem</em><br>limites.</h1>
-    <p class="hero-desc">Fotografia, vídeo e expressão artística. Um espaço construído para criadores, artistas e marcas que levam a imagem a sério.</p>
-    <a href="#reservar" class="cta-btn">
-      Reservar Agora
-      <span class="arrow">→</span>
-    </a>
-  </div>
-  <div class="hero-right">
-    <div class="hero-visual">
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-circle"></div>
-      <div class="hero-center-text">
-        <div class="big-num">12.000</div>
-        <div class="unit">Kz / hora</div>
-      </div>
+  <div class="hero-content">
+    <h1 class="hero-title">Espaço para<br>criar <strong>sem limites</strong></h1>
+    <div class="hero-meta">
+      <span>Estúdio fotográfico</span>
+      <span>Luanda · Patriota</span>
+      <span>8h00 — 20h00</span>
     </div>
   </div>
 </section>
-
-<!-- SERVIÇOS -->
-<section class="section" id="servicos">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Serviços & Preços</h2>
-  </div>
-  <div class="services-grid" style="grid-template-columns: 1fr 1fr;">
-    <div class="service-card">
-      <span class="service-tag">Aluguer por Hora</span>
-      <h3 class="service-name">Estúdio 1</h3>
-      <div class="service-price">12.000 <span>Kz/hora</span></div>
-      <p class="service-desc">Fundo infinito + fundos de papel (cinza, bege, vermelho, castanho). Equipado com 4 flash SK400 II, 2 LED SL-60D, 4 tripés de aço e 4 C-stands. Acompanhamento de assistente incluído.</p>
+ 
+<!-- 01 — O ESPAÇO -->
+<section class="secao" id="espaco">
+  <div class="secao-num">01 — O Espaço</div>
+  <h2 class="secao-titulo">Um estúdio com <strong>tudo o que precisas</strong>, e nada que não precises.</h2>
+ 
+  <div class="subseccao">
+    <div class="subseccao-header">
+      <div class="subseccao-titulo">Set</div>
+      <div class="subseccao-desc">O espaço · arquitectura · equipamento</div>
     </div>
-    <div class="service-card" style="border-right:none;">
-      <span class="service-tag">Pacote Acumulável</span>
-      <h3 class="service-name">Saldo de Horas</h3>
-      <div class="service-price">–20<span>% desconto</span></div>
-      <p class="service-desc">Pacotes de 20h, 30h e 40h com saldo acumulável e 20% de desconto. Prioridade de marcação apenas quando não existam reservas confirmadas para o horário pretendido. Horas não expiram.</p>
+    <div class="gal gal-4">
+      <div class="foto"><img src="fotos_hero/web/estudio-01.jpg" alt="Estúdio vazio" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/estudio-02.jpg" alt="Wide arquitectural" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/estudio-03.jpg" alt="Viewfinder conceptual" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/set-03.jpg" alt="Cabos e ligações" loading="lazy"></div>
     </div>
   </div>
-</section>
-
-<!-- REGRAS -->
-<section class="section">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Como Funciona</h2>
-  </div>
-  <div class="rules-grid">
-    <div class="rule-item">
-      <span class="rule-num">01</span>
-      <div>
-        <h4 class="rule-title">Efectue a pré-reserva</h4>
-        <p class="rule-text">Preencha o formulário abaixo com a data, horário e duração pretendidos. Receberá uma confirmação em 12 horas.</p>
-      </div>
+ 
+  <div class="subseccao">
+    <div class="subseccao-header">
+      <div class="subseccao-titulo">Bastidores</div>
+      <div class="subseccao-desc">Iluminação · preparação · sessão · entre takes</div>
     </div>
-    <div class="rule-item">
-      <span class="rule-num">02</span>
-      <div>
-        <h4 class="rule-title">Pagamento 24h antes</h4>
-        <p class="rule-text">O pagamento deverá ser efectuado pelo menos 24 horas antes da sessão via transferência bancária.</p>
-      </div>
-    </div>
-    <div class="rule-item">
-      <span class="rule-num">03</span>
-      <div>
-        <h4 class="rule-title">Envie o comprovativo</h4>
-        <p class="rule-text">Após o pagamento, envie o comprovativo via WhatsApp para confirmar a reserva definitivamente.</p>
-      </div>
-    </div>
-    <div class="rule-item">
-      <span class="rule-num">04</span>
-      <div>
-        <h4 class="rule-title">Pontualidade e Responsabilidade</h4>
-        <p class="rule-text">O tempo de sessão inicia e termina conforme reservado. Tolerância de 15 minutos. Qualquer dano ao equipamento ou espaço é da responsabilidade do cliente.</p>
-      </div>
+    <div class="gal gal-mosaico-6">
+      <div class="foto x1"><img src="fotos_hero/web/sessao-01.jpg" alt="Sessão" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/set-01.jpg" alt="Ajuste de luz" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/set-02.jpg" alt="Direcção" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/bts-04.jpg" alt="Maquilhagem" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/bts-03.jpg" alt="Detalhe" loading="lazy"></div>
+      <div class="foto"><img src="fotos_hero/web/sessao-04.jpg" alt="Retrato" loading="lazy"></div>
     </div>
   </div>
 </section>
-
-<!-- RESERVA + PAGAMENTO -->
-<section class="booking-section" id="reservar">
-  <div class="booking-info">
-    <div class="section-header">
-      <span class="section-num" style="color:var(--warm)">03</span>
-      <h2 class="section-title">Pagamento</h2>
+ 
+<!-- 02 — COMO FUNCIONA -->
+<section class="secao" id="funciona">
+  <div class="secao-num">02 — Como Funciona</div>
+  <h2 class="secao-titulo">Quatro passos, <strong>sem surpresas</strong>.</h2>
+  <div class="passos">
+    <div class="passo">
+      <div class="passo-num">01</div>
+      <h3 class="passo-titulo">Efectue a pré-reserva</h3>
+      <p class="passo-desc">Preencha o formulário com data, horário e duração. A pré-reserva bloqueia automaticamente o slot.</p>
     </div>
-    <p style="font-size:1.1rem; font-weight:300; color:rgba(245,240,232,0.7); line-height:1.8; margin-bottom:3rem;">
-      Após confirmar a reserva, efectue o pagamento por transferência bancária e envie o comprovativo.
-    </p>
-    <div class="payment-box">
-      <p class="payment-label">Transferência Bancária</p>
-      <div class="payment-method">
-        <div class="payment-icon">ATL</div>
-        <div>
-          <div style="font-size:0.95rem;">Banco Atlântico</div>
-          <div style="font-size:0.8rem; font-family:'DM Mono',monospace; color:rgba(245,240,232,0.4); margin-top:0.2rem; letter-spacing:0.05em;">IBAN: 005500001258899310136</div>
-          <div style="font-size:0.8rem; font-family:'DM Mono',monospace; color:rgba(245,240,232,0.3); margin-top:0.2rem;">ELLT Comércio e Prestação de Serviços</div>
-        </div>
-      </div>
+    <div class="passo">
+      <div class="passo-num">02</div>
+      <h3 class="passo-titulo">Pagamento até 24h antes</h3>
+      <p class="passo-desc">Transferência bancária para o IBAN UNU Studios. Sessões pagas no próprio dia não serão confirmadas.</p>
     </div>
-    <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid rgba(245,240,232,0.08);">
-      <p style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--warm); margin-bottom:0.8rem;">Enviar comprovativo</p>
-      <p style="font-size:1rem; color:rgba(245,240,232,0.6); font-weight:300;">WhatsApp · Canal exclusivo de confirmação</p>
+    <div class="passo">
+      <div class="passo-num">03</div>
+      <h3 class="passo-titulo">Envie o comprovativo</h3>
+      <p class="passo-desc">Envie o comprovativo de pagamento via WhatsApp. Receberá confirmação por email com todos os detalhes.</p>
+    </div>
+    <div class="passo">
+      <div class="passo-num">04</div>
+      <h3 class="passo-titulo">Pontualidade e Responsabilidade</h3>
+      <p class="passo-desc">Tolerância de 15 minutos. Após esse tempo a sessão inicia sem reposição. Danos ao equipamento ou espaço são da responsabilidade do cliente.</p>
     </div>
   </div>
-
-  <div class="booking-form">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Reservar</h2>
+</section>
+ 
+<!-- 03 — PROCESSO -->
+<section class="processo" id="processo">
+  <div class="processo-inner">
+    <div class="secao-num">03 — O Processo</div>
+    <p class="processo-frase">O <em>processo</em>. A <em>energia</em>. O que acontece entre flashes — onde o trabalho acontece de verdade.</p>
+    <div class="processo-imagem">
+      <img src="fotos_hero/web/processo-01.jpg" alt="Processo" loading="lazy">
     </div>
-
-    <form id="bookingForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Nome Completo</label>
-          <input type="text" id="inputNome" class="form-input" placeholder="Nome completo" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" id="inputEmail" class="form-input" placeholder="Email">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">WhatsApp</label>
-        <input type="tel" id="inputTelefone" class="form-input" placeholder="+244 9XX XXX XXX" required>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Serviço</label>
-        <select class="form-select" id="serviceSelect">
+  </div>
+</section>
+ 
+<!-- 04 — SERVIÇOS -->
+<section class="secao" id="servicos">
+  <div class="secao-num">04 — Serviços & Preços</div>
+  <h2 class="secao-titulo">Hora avulsa ou <strong>saldo de horas</strong> com 20% de desconto.</h2>
+  <div class="servicos-grid">
+    <div class="servico">
+      <h3>Estúdio 1</h3>
+      <div class="preco">12.000 Kz</div>
+      <div class="por">por hora</div>
+      <ul>
+        <li>5 fundos infinitos (branco, cinza, vermelho, bege/castanho, preto)</li>
+        <li>4 flashes Godox SK400 II</li>
+        <li>2 LEDs SL-60D</li>
+        <li>Tripés e C-stands</li>
+        <li>Assistente incluído</li>
+      </ul>
+    </div>
+    <div class="servico">
+      <h3>Saldo 10h</h3>
+      <div class="preco">96.000 Kz</div>
+      <div class="por">9.600 Kz / hora</div>
+      <ul>
+        <li>10 horas de uso</li>
+        <li>20% de desconto</li>
+        <li>Sem prazo de validade</li>
+        <li>Acumulável entre sessões</li>
+      </ul>
+      <div class="destaque">Poupa 24.000 Kz</div>
+    </div>
+    <div class="servico">
+      <h3>Saldo 20h</h3>
+      <div class="preco">192.000 Kz</div>
+      <div class="por">9.600 Kz / hora</div>
+      <ul>
+        <li>20 horas de uso</li>
+        <li>20% de desconto</li>
+        <li>Sem prazo de validade</li>
+        <li>Acumulável entre sessões</li>
+      </ul>
+      <div class="destaque">Poupa 48.000 Kz</div>
+    </div>
+    <div class="servico">
+      <h3>Saldo 40h</h3>
+      <div class="preco">384.000 Kz</div>
+      <div class="por">9.600 Kz / hora</div>
+      <ul>
+        <li>40 horas de uso</li>
+        <li>20% de desconto</li>
+        <li>Prioridade de marcação</li>
+        <li>Sem prazo de validade</li>
+      </ul>
+      <div class="destaque">Poupa 96.000 Kz</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- 05 — RESERVAR -->
+<section class="secao" id="reservar">
+  <div class="secao-num">05 — Reservar</div>
+  <h2 class="secao-titulo">Pré-reserva com <strong>verificação de disponibilidade</strong>.</h2>
+  <form class="form-wrap" id="reservaForm" onsubmit="enviarReserva(event)">
+    <div class="form-row">
+      <div><label for="nome">Nome *</label><input type="text" id="nome" name="nome" required></div>
+      <div><label for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" required placeholder="9XXXXXXXX"></div>
+    </div>
+    <div class="form-row full">
+      <div><label for="email">Email *</label><input type="email" id="email" name="email" required></div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label for="servico">Serviço *</label>
+        <select id="servico" name="servico" required>
           <option value="">Seleccionar...</option>
-          <option value="12000">Estúdio 1 — 12.000 Kz/hora</option>
-          <option value="saldo20">Pacote Saldo 20h — com 20% desconto</option>
-          <option value="saldo30">Pacote Saldo 30h — com 20% desconto</option>
-          <option value="saldo40">Pacote Saldo 40h — com 20% desconto</option>
+          <option value="Estúdio 1 — 12.000 Kz/hora">Estúdio 1 — 12.000 Kz/hora</option>
+          <option value="Saldo de Horas — 10h × 9.600 Kz">Saldo de Horas 10h</option>
+          <option value="Saldo de Horas — 20h × 9.600 Kz">Saldo de Horas 20h</option>
+          <option value="Saldo de Horas — 40h × 9.600 Kz">Saldo de Horas 40h</option>
         </select>
       </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Data</label>
-          <input type="date" class="form-input" id="dateInput" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Horário</label>
-          <select class="form-select" id="timeSelect">
-            <option value="">Seleccione a data acima</option>
-          </select>
-        </div>
+      <div>
+        <label for="duracao">Duração (horas) *</label>
+        <select id="duracao" name="duracao" required onchange="atualizarHorarios()">
+          <option value="">Seleccionar...</option>
+          <option value="1">1h</option><option value="2">2h</option><option value="3">3h</option>
+          <option value="4">4h</option><option value="5">5h</option><option value="6">6h</option>
+          <option value="8">8h</option>
+        </select>
       </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Duração (horas)</label>
-          <select class="form-select" id="durationSelect">
-            <option value="">Seleccionar...</option>
-            <option value="1">1 hora</option>
-            <option value="2">2 horas</option>
-            <option value="3">3 horas</option>
-            <option value="4">4 horas</option>
-            <option value="5">5 horas</option>
-            <option value="6">6 horas</option>
-            <option value="8">8 horas (dia completo)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nº de Pessoas</label>
-          <select class="form-select" id="selectPessoas">
-            <option value="">Seleccionar...</option>
-            <option>1 pessoa</option>
-            <option>2 pessoas</option>
-            <option>3 pessoas</option>
-            <option>4 pessoas</option>
-            <option>5+ pessoas</option>
-          </select>
-        </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label for="data">Data *</label>
+        <input type="date" id="data" name="data" required onchange="atualizarHorarios()">
       </div>
-
-      <div class="form-group">
-        <label class="form-label">Tipo de Conteúdo</label>
-        <select class="form-select" id="selectTipoConteudo">
+      <div>
+        <label for="horario">Horário *</label>
+        <select id="horario" name="horario" required>
+          <option value="">Escolha data e duração primeiro</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label for="pessoas">Nº de pessoas *</label>
+        <select id="pessoas" name="pessoas" required>
+          <option value="">Seleccionar...</option>
+          <option>1 pessoa</option><option>2 pessoas</option><option>3 pessoas</option>
+          <option>4 pessoas</option><option>5+ pessoas</option>
+        </select>
+      </div>
+      <div>
+        <label for="tipoConteudo">Tipo de Conteúdo *</label>
+        <select id="tipoConteudo" name="tipoConteudo" required>
           <option value="">Seleccionar...</option>
           <option>Retrato / Fotografia Individual</option>
           <option>Sessão de Família</option>
@@ -788,395 +440,211 @@
           <option>Vídeo / Videoclipe</option>
           <option>Conteúdo para Redes Sociais</option>
           <option>Produto / Publicidade</option>
-          <option>Gravação de Podcast</option>
           <option>Outro</option>
         </select>
       </div>
-
+    </div>
+    <div class="form-row">
+      <div>
+        <label for="fundo">Fundo</label>
+        <select id="fundo" name="fundo">
+          <option>Sem preferência</option>
+          <option>Fundo Branco</option><option>Fundo Cinza</option>
+          <option>Fundo Vermelho</option><option>Fundo Bege / Castanho</option>
+          <option>Fundo Preto</option><option>Canvas Cinza</option>
+        </select>
+      </div>
+      <div>
+        <label for="luz">Luz</label>
+        <select id="luz" name="luz">
+          <option>Sem preferência / Assistente decide</option>
+          <option>Luz Suave (Softbox / Octabox)</option>
+          <option>Luz Dura (Flash Directo)</option>
+          <option>Luz Contínua (LED)</option>
+          <option>Mista</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row full">
+      <div><label for="notas">Notas adicionais</label><textarea id="notas" name="notas" placeholder="Equipamento extra, acessórios, requisitos especiais..."></textarea></div>
+    </div>
+    <div class="form-row full">
+      <div>
+        <label for="fatura">Precisa de factura?</label>
+        <select id="fatura" name="fatura" onchange="toggleFatura()">
+          <option>Não</option><option>Sim</option>
+        </select>
+      </div>
+    </div>
+    <div id="faturaCampos" style="display:none">
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Fundos Pretendidos</label>
-          <select class="form-select" id="selectFundo">
-            <option value="">Seleccionar...</option>
-            <option>Fundo Branco</option>
-            <option>Fundo Preto</option>
-            <option>Fundo Bege / Castanho</option>
-            <option>Fundo Cinza</option>
-            <option>Fundo Vermelho</option>
-            <option>Fundo Cinza Escuro</option>
-            <option>Canvas Cinza</option>
-            <option>Canvas Cor de Vinho</option>
-            <option>Sem preferência</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Configuração de Luz</label>
-          <select class="form-select" id="selectLuz">
-            <option value="">Seleccionar...</option>
-            <option>Luz Suave (Softbox / Octabox)</option>
-            <option>Luz Dura (Flash Directo)</option>
-            <option>Luz Contínua (LED)</option>
-            <option>Mista</option>
-            <option>Sem preferência / Assistente decide</option>
-          </select>
-        </div>
+        <div><label for="faturaNome">Nome / Empresa</label><input type="text" id="faturaNome" name="faturaNome"></div>
+        <div><label for="faturaNif">NIF</label><input type="text" id="faturaNif" name="faturaNif"></div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label">Notas Adicionais (opcional)</label>
-        <textarea id="inputNotas" class="form-textarea" placeholder="Ideias, referências visuais, necessidades especiais..."></textarea>
+      <div class="form-row full">
+        <div><label for="faturaMorada">Morada</label><input type="text" id="faturaMorada" name="faturaMorada"></div>
       </div>
-
-      <!-- FATURA -->
-      <div style="border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 1rem;">
-        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; cursor:pointer;" onclick="toggleFatura()">
-          <div id="faturaToggle" style="width:22px; height:22px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.8rem; transition:all 0.3s;">○</div>
-          <span style="font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">Preciso de Fatura</span>
-        </div>
-        <div id="faturaFields" style="display:none;">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Nome / Empresa</label>
-              <input type="text" id="inputFaturaNome" class="form-input" placeholder="Nome completo ou razão social">
-            </div>
-            <div class="form-group">
-              <label class="form-label">NIF</label>
-              <input type="text" id="inputFaturaNif" class="form-input" placeholder="Número de contribuinte">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Morada para Fatura</label>
-            <input type="text" id="inputFaturaMorada" class="form-input" placeholder="Morada completa">
-          </div>
-        </div>
-      </div>
-
-      <div class="total-display" id="totalDisplay">
-        <span class="total-label">Total Estimado</span>
-        <span class="total-value" id="totalValue">—</span>
-      </div>
-
-      <button type="button" class="submit-btn" onclick="submitForm()">
-        Confirmar Pré-reserva
-        <span>→</span>
-      </button>
-
-      <div class="success-msg" id="successMsg">
-        ✓ Pré-reserva recebida com sucesso.<br><br>
-        Receberá confirmação em até <strong>12 horas</strong>.<br>
-        O pagamento deverá ser efectuado <strong>48 horas antes</strong> da sessão para confirmar definitivamente.<br><br>
-        <span style="font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--warm);">Envie o comprovativo via WhatsApp após o pagamento.</span>
-      </div>
-    </form>
+    </div>
+    <button type="submit" class="btn btn-block">Efectuar pré-reserva</button>
+    <div id="formMsg" class="form-msg"></div>
+  </form>
+</section>
+ 
+<!-- 06 — PAGAMENTO -->
+<section class="secao" id="pagamento">
+  <div class="secao-num">06 — Pagamento</div>
+  <h2 class="secao-titulo">Transferência bancária <strong>até 24h antes</strong> da sessão.</h2>
+  <div class="pagamento-box">
+    <div class="pagamento-row"><span>Banco</span><span>Banco Atlântico</span></div>
+    <div class="pagamento-row"><span>Titular</span><span>ELLT Comércio e Prestação de Serviços</span></div>
+    <div class="pagamento-row"><span>IBAN</span><span>0055 0000 1258 8993 1013 6 <button class="copy-btn" onclick="copiar('005500001258899310136')">Copiar</button></span></div>
+    <div class="pagamento-row"><span>Comprovativo</span><span><a href="https://wa.me/244940256687" target="_blank" rel="noopener">WhatsApp +244 940 256 687</a></span></div>
   </div>
 </section>
-
-<!-- CONTACTOS & REDES -->
-<section class="section" id="contacto" style="background:var(--black); color:var(--cream); border-bottom:none;">
-  <div class="section-header">
-    <span class="section-num" style="color:var(--warm);">04</span>
-    <h2 class="section-title" style="color:var(--cream);">Contacto & Redes</h2>
-  </div>
-  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border:1px solid rgba(245,240,232,0.08);">
-
-    <div style="padding:2.5rem; border-right:1px solid rgba(245,240,232,0.08);">
-      <p style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--warm); margin-bottom:1rem;">Instagram</p>
-      <a href="https://www.instagram.com/unu.studios/" target="_blank" style="color:var(--cream); text-decoration:none; font-size:1.2rem; font-weight:600; display:flex; align-items:center; gap:0.8rem; transition:color 0.3s;" onmouseover="this.style.color='#C8B89A'" onmouseout="this.style.color='#F5F0E8'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        @unu.studios
-      </a>
-      <p style="font-size:0.95rem; color:rgba(245,240,232,0.4); margin-top:0.6rem;">Portfólio · Bastidores · Novidades</p>
-    </div>
-
-    <div style="padding:2.5rem; border-right:1px solid rgba(245,240,232,0.08);">
-      <p style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--warm); margin-bottom:1rem;">WhatsApp</p>
-      <a href="https://wa.me/244940256687" target="_blank" style="color:var(--cream); text-decoration:none; font-size:1.2rem; font-weight:600; display:flex; align-items:center; gap:0.8rem; transition:color 0.3s;" onmouseover="this.style.color='#C8B89A'" onmouseout="this.style.color='#F5F0E8'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        +244 940 256 687
-      </a>
-      <p style="font-size:0.95rem; color:rgba(245,240,232,0.4); margin-top:0.6rem;">Único canal para envio de comprovativo</p>
-    </div>
-
-    <div style="padding:2.5rem;">
-      <p style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--warm); margin-bottom:1rem;">Email</p>
-      <a href="/cdn-cgi/l/email-protection#cfbaa1babcbbbaaba6a0bce1aea08fa8a2aea6a3e1aca0a2" style="color:var(--cream); text-decoration:none; font-size:1.1rem; font-weight:600; display:flex; align-items:center; gap:0.8rem; transition:color 0.3s;" onmouseover="this.style.color='#C8B89A'" onmouseout="this.style.color='#F5F0E8'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span class="__cf_email__" data-cfemail="99ecf7eceaedecfdf0f6eab7f8f6d9fef4f8f0f5b7faf6f4">[email&#160;protected]</span>
-      </a>
-      <p style="font-size:0.95rem; color:rgba(245,240,232,0.4); margin-top:0.6rem;">Rua das Palmeirinhas nº31, Luanda</p>
-    </div>
-
+ 
+<!-- 07 — CONTACTO -->
+<section class="secao" id="contacto">
+  <div class="secao-num">07 — Contacto & Redes</div>
+  <h2 class="secao-titulo">Onde nos <strong>encontras</strong>.</h2>
+  <div class="contacto-grid">
+    <a href="https://instagram.com/unu.studios" class="contacto-item" target="_blank" rel="noopener">
+      <div class="label">Instagram</div>
+      <div class="valor">@unu.studios</div>
+    </a>
+    <a href="https://wa.me/244940256687" class="contacto-item" target="_blank" rel="noopener">
+      <div class="label">WhatsApp</div>
+      <div class="valor">+244 940 256 687</div>
+    </a>
+    <a href="mailto:unustudios.ao@gmail.com" class="contacto-item">
+      <div class="label">Email</div>
+      <div class="valor">unustudios.ao@gmail.com</div>
+    </a>
   </div>
 </section>
-
-<!-- FOOTER -->
+ 
 <footer>
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 155" height="80" style="display:block;margin-bottom:0.8rem;"><text x="50%" y="122" text-anchor="middle" font-family="'Nunito','Outfit',Arial,sans-serif" font-weight="900" font-size="148" letter-spacing="-4" fill="#F5F0E8">UNU</text></svg>
-    <div class="footer-tagline">Espaço criativo para fotografia & vídeo</div>
-  </div>
-  <div class="footer-contact">
-    Luanda, Angola<br>
-    NIF 5001671227
-  </div>
+  UNU Studios · Rua das Palmeirinhas nº31, Cabolombo, Patriota, Luanda<br>
+  ELLT Comércio e Prestação de Serviços · NIF 5001671227<br>
+  © 2026 — Todos os direitos reservados
 </footer>
-
+ 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Definir data mínima como amanhã
-  const dateInput = document.getElementById('dateInput');
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  dateInput.min = tomorrow.toISOString().split('T')[0];
-
-  // Adicionar listeners para calcTotal
-  document.getElementById('serviceSelect').addEventListener('change', calcTotal);
-  document.getElementById('durationSelect').addEventListener('change', calcTotal);
-
-  function calcTotal() {
-    const service = document.getElementById('serviceSelect').value;
-    const duration = parseInt(document.getElementById('durationSelect').value) || 0;
-    const totalDisplay = document.getElementById('totalDisplay');
-    const totalValue = document.getElementById('totalValue');
-
-    if (!service) { totalDisplay.classList.remove('show'); return; }
-
-    let total = 0;
-    let label = '';
-
-    if (service === '12000') {
-      if (!duration) { totalDisplay.classList.remove('show'); return; }
-      total = 12000 * duration;
-      label = `${total.toLocaleString('pt-PT')} Kz`;
-    } else if (service === 'saldo20') {
-      total = 12000 * 20 * 0.80;
-      label = `${total.toLocaleString('pt-PT')} Kz — 20h`;
-    } else if (service === 'saldo30') {
-      total = 12000 * 30 * 0.80;
-      label = `${total.toLocaleString('pt-PT')} Kz — 30h`;
-    } else if (service === 'saldo40') {
-      total = 12000 * 40 * 0.80;
-      label = `${total.toLocaleString('pt-PT')} Kz — 40h`;
-    }
-
-    totalValue.textContent = label;
-    totalDisplay.classList.add('show');
-  }
-
-  window.toggleFatura = toggleFatura;
-  function toggleFatura() {
-    const fields = document.getElementById('faturaFields');
-    const toggle = document.getElementById('faturaToggle');
-    const isOpen = fields.style.display !== 'none';
-    fields.style.display = isOpen ? 'none' : 'block';
-    toggle.textContent = isOpen ? '○' : '✓';
-    toggle.style.background = isOpen ? 'transparent' : 'var(--black)';
-    toggle.style.color = isOpen ? '' : 'var(--cream)';
-    toggle.style.borderColor = isOpen ? 'var(--border)' : 'var(--black)';
-  }
-
-  // ── URL DO WEBHOOK (substituir após publicar o Apps Script) ──
-  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzBe8TXvm4tjt3EHQz_RZaBTlv4q3adcKwxgIR9wSlaefQfKD05V7qhWf67XotwHQcX/exec";
-  const DISP_URL = WEBHOOK_URL + "?action=disponibilidade";
-  const BUFFER_MIN = 30;
-
-  let ocupados = {};
-  let intervalos = {};
-
-  function carregarDisponibilidade(callback) {
-    fetch(DISP_URL)
-      .then(r => r.json())
-      .then(res => {
-        if (res.status === "ok") {
-          ocupados = res.ocupados || {};
-          intervalos = res.intervalos || {};
-          console.log("Ocupados:", ocupados);
-          console.log("Intervalos:", intervalos);
-        }
-        if (callback) callback();
-      })
-      .catch(err => {
-        console.warn("Erro ao carregar disponibilidade:", err);
-        if (callback) callback();
-      });
-  }
-
-  carregarDisponibilidade();
-
-  // Verificar se um slot (hora + duração) colide com reservas existentes
-  // Retorna null se disponível, ou {duracaoMax, proximaReserva} se ocupado
-  function verificarSlot(dataISO, horaStr, duracaoHoras) {
-    const [h, m] = horaStr.split(":").map(Number);
-    const inicioMin = h * 60 + (m || 0);
-    const fimMin = inicioMin + duracaoHoras * 60;
-    const lista = (intervalos[dataISO] || []).slice().sort((a,b) => a.inicio - b.inicio);
-
-    for (const r of lista) {
-      const meuInicio = inicioMin - BUFFER_MIN;
-      const meuFim    = fimMin + BUFFER_MIN;
-      if (!(meuFim <= r.inicio || meuInicio >= r.fim)) {
-        // Calcular duração máxima possível a partir desta hora
-        let duracaoMax = 0;
-        // Se esta hora é antes da reserva em conflito, calcular espaço até ela
-        if (inicioMin + BUFFER_MIN <= r.inicio) {
-          const espacoMin = (r.inicio - BUFFER_MIN) - inicioMin;
-          if (espacoMin > 0) duracaoMax = Math.floor(espacoMin / 60);
-        }
-        return { duracaoMax, reservaConflito: r };
+// ============================================================
+// SISTEMA DE DISPONIBILIDADE (lê do webhook do Apps Script)
+// ============================================================
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzBe8TXvm4tjt3EHQz_RZaBTlv4q3adcKwxgIR9wSlaefQfKD05V7qhWf67XotwHQcX/exec";
+const BUFFER_MIN = 30;
+let intervalos = {};
+ 
+const todosHorarios = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
+ 
+async function carregarDisponibilidade() {
+  try {
+    const r = await fetch(WEBHOOK_URL + "?action=disponibilidade");
+    const res = await r.json();
+    if (res.status === "ok") intervalos = res.intervalos || {};
+  } catch(e) { console.warn("Disponibilidade indisponível:", e); }
+}
+carregarDisponibilidade();
+ 
+function verificarSlot(dataISO, horaStr, duracaoHoras) {
+  const [h, m] = horaStr.split(":").map(Number);
+  const inicioMin = h*60 + (m||0);
+  const fimMin = inicioMin + duracaoHoras*60;
+  const lista = (intervalos[dataISO] || []).slice().sort((a,b) => a.inicio - b.inicio);
+  for (const r of lista) {
+    const meuInicio = inicioMin - BUFFER_MIN;
+    const meuFim = fimMin + BUFFER_MIN;
+    if (!(meuFim <= r.inicio || meuInicio >= r.fim)) {
+      let duracaoMax = 0;
+      if (inicioMin + BUFFER_MIN <= r.inicio) {
+        const espacoMin = (r.inicio - BUFFER_MIN) - inicioMin;
+        if (espacoMin > 0) duracaoMax = Math.floor(espacoMin/30)/2;
       }
+      return { duracaoMax };
     }
-    return null;
   }
-
-  document.getElementById('dateInput').addEventListener('change', function() {
-    atualizarHorarios(this.value);
-  });
-  document.getElementById('dateInput').addEventListener('input', function() {
-    atualizarHorarios(this.value);
-  });
-  document.getElementById('dateInput').addEventListener('focus', function() {
-    carregarDisponibilidade(() => {
-      if (this.value) atualizarHorarios(this.value);
-    });
-  });
-  document.getElementById('durationSelect').addEventListener('change', function() {
-    const data = document.getElementById('dateInput').value;
-    if (data) atualizarHorarios(data);
-  });
-
-  function atualizarHorarios(dataISO) {
-    if (!dataISO) return;
-    const select = document.getElementById('timeSelect');
-    const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
-    const todosHorarios = [
-      '08:00','08:30','09:00','09:30','10:00','10:30',
-      '11:00','11:30','12:00','12:30','13:00','13:30',
-      '14:00','14:30','15:00','15:30','16:00','16:30',
-      '17:00','17:30','18:00'
-    ];
-
+  return null;
+}
+ 
+function atualizarHorarios() {
+  const data = document.getElementById('data').value;
+  const duracao = parseFloat(document.getElementById('duracao').value) || 0;
+  const select = document.getElementById('horario');
+  if (!data || !duracao) {
+    select.innerHTML = '<option value="">Escolha data e duração primeiro</option>';
+    return;
+  }
+  carregarDisponibilidade().then(() => {
     select.innerHTML = '<option value="">Seleccionar horário...</option>';
-
-    let algumDisponivel = false;
+    let algum = false;
     todosHorarios.forEach(h => {
       const opt = document.createElement('option');
       opt.value = h;
       const [hh, mm] = h.split(":").map(Number);
-      const inicioMin = hh * 60 + mm;
-      const fimMin = inicioMin + duracao * 60;
-      // Não permitir terminar depois das 19h
-      if (fimMin > 19 * 60) {
+      const inicioMin = hh*60 + mm;
+      const fimMin = inicioMin + duracao*60;
+      if (fimMin > 20*60) {
         opt.textContent = h + ' — Fora do horário';
         opt.disabled = true;
-        opt.style.color = '#bbb';
       } else {
-        const conflito = verificarSlot(dataISO, h, duracao);
+        const conflito = verificarSlot(data, h, duracao);
         if (conflito) {
-          if (conflito.duracaoMax > 0) {
-            opt.textContent = h + ' — Máx. ' + conflito.duracaoMax + 'h disponível';
-          } else {
-            opt.textContent = h + ' — Indisponível';
-          }
+          opt.textContent = conflito.duracaoMax > 0 ? h + ' — Máx. ' + conflito.duracaoMax + 'h' : h + ' — Indisponível';
           opt.disabled = true;
-          opt.style.color = '#bbb';
         } else {
           opt.textContent = h;
-          algumDisponivel = true;
+          algum = true;
         }
       }
       select.appendChild(opt);
     });
-
-    if (!algumDisponivel) {
-      select.innerHTML = '<option value="">Sem horários disponíveis para ' + duracao + 'h nesta data</option>';
-    }
-  }
-
-  function validarDisponibilidade() {
-    const data = document.getElementById('dateInput').value;
-    const hora = document.getElementById('timeSelect').value;
-    const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
-    if (!data || !hora) return true;
-
-    const conflito = verificarSlot(data, hora, duracao);
-    if (conflito) {
-      if (conflito.duracaoMax > 0) {
-        alert('O horário ' + hora + ' não tem ' + duracao + 'h disponíveis nesta data. Duração máxima possível a partir desta hora: ' + conflito.duracaoMax + 'h. Por favor escolha outra hora ou reduza a duração.');
-      } else {
-        alert('O horário ' + hora + ' não está disponível em ' + data + '. Por favor escolha outro horário.');
-      }
-      return false;
-    }
-    return true;
-  }
-
-  window.submitForm = submitForm;
-  function submitForm() {
-    const nome     = document.getElementById('inputNome').value.trim();
-    const email    = document.getElementById('inputEmail').value.trim();
-    const telefone = document.getElementById('inputTelefone').value.trim();
-    const servico  = document.getElementById('serviceSelect').options[document.getElementById('serviceSelect').selectedIndex]?.text || '';
-    const data     = document.getElementById('dateInput').value;
-    const horario  = document.getElementById('timeSelect').value;
-    const duracao  = document.getElementById('durationSelect').value;
-    const pessoas  = document.getElementById('selectPessoas').value;
-    const tipoConteudo = document.getElementById('selectTipoConteudo').value;
-    const fundo    = document.getElementById('selectFundo').value;
-    const luz      = document.getElementById('selectLuz').value;
-    const notas    = document.getElementById('inputNotas').value.trim();
-    const faturaToggle = document.getElementById('faturaToggle').textContent === '✓';
-    const faturaNome   = document.getElementById('inputFaturaNome')?.value.trim() || '';
-    const faturaNif    = document.getElementById('inputFaturaNif')?.value.trim() || '';
-    const faturaMorada = document.getElementById('inputFaturaMorada')?.value.trim() || '';
-
-    // Validação básica
-    if (!nome || !telefone || !data) {
-      [['inputNome', nome], ['inputTelefone', telefone], ['dateInput', data]].forEach(([id, val]) => {
-        if (!val) {
-          const el = document.getElementById(id);
-          el.style.borderBottomColor = '#C0392B';
-          setTimeout(() => el.style.borderBottomColor = '', 2000);
-        }
-      });
-      return;
-    }
-
-    // Validar disponibilidade do horário
-    if (!validarDisponibilidade()) return;
-
-    const btn = document.querySelector('.submit-btn');
-    btn.textContent = 'A enviar...';
-    btn.disabled = true;
-
-    const payload = {
-      nome, email, telefone, servico, data, horario, duracao,
-      pessoas, tipoConteudo, fundo, luz, notas,
-      fatura: faturaToggle ? 'Sim' : 'Não',
-      faturaNome, faturaNif, faturaMorada
-    };
-
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload)
-    })
-    .then(r => r.json())
-    .then(res => {
-      if (res.status === 'ok') {
-        btn.style.display = 'none';
-        document.getElementById('successMsg').classList.add('show');
-      } else {
-        btn.textContent = 'Erro — tenta novamente';
-        btn.disabled = false;
-         }
-    })
-    .catch(() => {
-      btn.textContent = 'Erro de ligação — tenta novamente';
-      btn.disabled = false;
+    if (!algum) select.innerHTML = '<option value="">Sem horários disponíveis nesta data</option>';
+  });
+}
+ 
+function toggleFatura() {
+  document.getElementById('faturaCampos').style.display = document.getElementById('fatura').value === 'Sim' ? 'block' : 'none';
+}
+ 
+async function copiar(texto) {
+  try { await navigator.clipboard.writeText(texto); alert('Copiado: ' + texto); }
+  catch(e) { alert('Copia manualmente: ' + texto); }
+}
+ 
+async function enviarReserva(e) {
+  e.preventDefault();
+  const form = e.target;
+  const msg = document.getElementById('formMsg');
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true; btn.textContent = 'A enviar...';
+  msg.classList.remove('show', 'error');
+ 
+  const dados = {};
+  new FormData(form).forEach((v, k) => dados[k] = v);
+ 
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
     });
+    msg.textContent = '✅ Pré-reserva submetida. Receberá email com os detalhes. Envie o comprovativo de pagamento via WhatsApp até 24h antes da sessão.';
+    msg.classList.add('show');
+    form.reset();
+    document.getElementById('faturaCampos').style.display = 'none';
+    btn.textContent = 'Enviado';
+  } catch(err) {
+    msg.textContent = '❌ Erro a enviar. Contacte directamente via WhatsApp.';
+    msg.classList.add('show', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Tentar novamente';
   }
-
-}); // fim DOMContentLoaded
+}
+ 
+// Min date = today
+document.getElementById('data').min = new Date().toISOString().split('T')[0];
 </script>
+ 
 </body>
 </html>
