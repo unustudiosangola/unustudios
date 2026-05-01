@@ -33,8 +33,7 @@
   }
   img { display: block; max-width: 100%; height: auto; }
   a { color: inherit; }
- 
-  /* ========== NAV ========== */
+
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 18px 40px;
@@ -47,13 +46,12 @@
   .nav-links { display: flex; gap: 32px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
   .nav-links a { text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
   .nav-links a:hover { opacity: 1; }
- 
-  /* ========== HERO ========== */
+
   .hero {
     position: relative; height: 100vh; min-height: 700px; width: 100%; overflow: hidden;
     background:
       linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.55) 100%),
-      url('fotos_hero/web/hero.jpg') center/cover no-repeat;
+      url('hero.jpg') center/cover no-repeat;
     background-color: #2a2520;
     display: flex; align-items: flex-end; color: #F5F0E8;
   }
@@ -71,8 +69,7 @@
     text-transform: uppercase; text-align: right; opacity: 0.85; line-height: 2;
   }
   .hero-meta span { display: block; }
- 
-  /* ========== SECÇÃO PADRÃO ========== */
+
   .secao { padding: 120px 40px; max-width: 1400px; margin: 0 auto; }
   .secao-num {
     font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px;
@@ -83,8 +80,7 @@
     letter-spacing: -1px; line-height: 1.05; margin-bottom: 60px; max-width: 22ch;
   }
   .secao-titulo strong { font-weight: 700; }
- 
-  /* ========== O ESPAÇO — Set & Bastidores ========== */
+
   .subseccao { margin-bottom: 80px; }
   .subseccao-header {
     display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px;
@@ -92,28 +88,24 @@
   }
   .subseccao-titulo { font-weight: 700; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; }
   .subseccao-desc { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; flex: 1; }
- 
+
   .gal { display: grid; gap: 8px; }
   .gal-4 { grid-template-columns: repeat(4, 1fr); }
   .gal-mosaico-6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; }
   .gal-mosaico-6 .x1 { grid-row: span 2; }
- 
+
   .foto { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #2a2520; }
   .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
   .foto:hover img { transform: scale(1.03); }
   .gal-4 .foto { aspect-ratio: 4/5; }
   .gal-mosaico-6 .foto { aspect-ratio: auto; height: 100%; }
- 
-  /* ========== COMO FUNCIONA ========== */
+
   .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .passo {
-    border-top: 2px solid var(--fg); padding-top: 16px;
-  }
+  .passo { border-top: 2px solid var(--fg); padding-top: 16px; }
   .passo-num { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--muted); }
   .passo-titulo { font-weight: 700; font-size: 18px; margin: 8px 0 12px; letter-spacing: -0.3px; }
   .passo-desc { font-size: 14px; color: #4a4a4a; line-height: 1.6; }
- 
-  /* ========== PROCESSO ========== */
+
   .processo { background: var(--fg); color: var(--bg); padding: 120px 40px; }
   .processo-inner { max-width: 1400px; margin: 0 auto; }
   .processo .secao-num { color: var(--accent); }
@@ -122,12 +114,9 @@
     letter-spacing: -1px; max-width: 26ch; margin-bottom: 60px;
   }
   .processo-frase em { font-style: normal; color: var(--accent); }
-  .processo-imagem {
-    width: 100%; height: 540px; overflow: hidden;
-  }
+  .processo-imagem { width: 100%; height: 540px; overflow: hidden; }
   .processo-imagem img { width: 100%; height: 100%; object-fit: cover; }
- 
-  /* ========== SERVIÇOS ========== */
+
   .servicos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .servico {
     border: 1px solid var(--line); padding: 32px; background: var(--soft);
@@ -143,8 +132,7 @@
     font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px;
     text-transform: uppercase; color: var(--muted);
   }
- 
-  /* ========== FORMULÁRIO ========== */
+
   .form-wrap { max-width: 720px; margin: 0 auto; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   .form-row.full { grid-template-columns: 1fr; }
@@ -159,8 +147,7 @@
   .form-msg { padding: 16px; background: var(--green-bg); color: var(--green); border-radius: 4px; margin-top: 16px; display: none; }
   .form-msg.error { background: var(--red-bg); color: var(--red); }
   .form-msg.show { display: block; }
- 
-  /* ========== PAGAMENTO ========== */
+
   .pagamento-box {
     background: var(--soft); border: 1px solid var(--line);
     padding: 32px; border-radius: 4px; max-width: 720px; margin: 0 auto;
@@ -175,8 +162,7 @@
     letter-spacing: 1px; text-transform: uppercase;
   }
   .copy-btn:hover { color: var(--fg); }
- 
-  /* ========== CONTACTO ========== */
+
   .contacto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
   .contacto-item {
     border: 1px solid var(--line); padding: 32px; text-align: center;
@@ -186,8 +172,7 @@
   .contacto-item:hover { background: var(--soft); transform: translateY(-2px); }
   .contacto-item .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
   .contacto-item .valor { font-size: 18px; font-weight: 500; }
- 
-  /* ========== CTA ========== */
+
   .btn {
     display: inline-block; padding: 18px 48px; background: var(--fg); color: var(--bg);
     text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px;
@@ -196,15 +181,13 @@
   }
   .btn:hover { transform: translateY(-2px); }
   .btn-block { display: block; width: 100%; padding: 20px; text-align: center; }
- 
-  /* ========== FOOTER ========== */
+
   footer {
     border-top: 1px solid var(--line); padding: 40px;
     text-align: center; font-family: 'DM Mono', monospace;
     font-size: 11px; color: var(--muted); letter-spacing: 1.5px; line-height: 2;
   }
- 
-  /* ========== RESPONSIVE ========== */
+
   @media (max-width: 800px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
@@ -223,7 +206,7 @@
 </style>
 </head>
 <body>
- 
+
 <nav>
   <div class="logo">UNU</div>
   <div class="nav-links">
@@ -234,8 +217,7 @@
     <a href="#contacto">Contacto</a>
   </div>
 </nav>
- 
-<!-- HERO -->
+
 <section class="hero">
   <div class="hero-content">
     <h1 class="hero-title">Espaço para<br>criar <strong>sem limites</strong></h1>
@@ -246,42 +228,40 @@
     </div>
   </div>
 </section>
- 
-<!-- 01 — O ESPAÇO -->
+
 <section class="secao" id="espaco">
   <div class="secao-num">01 — O Espaço</div>
   <h2 class="secao-titulo">Um estúdio com <strong>tudo o que precisas</strong>, e nada que não precises.</h2>
- 
+
   <div class="subseccao">
     <div class="subseccao-header">
       <div class="subseccao-titulo">Set</div>
       <div class="subseccao-desc">O espaço · arquitectura · equipamento</div>
     </div>
     <div class="gal gal-4">
-      <div class="foto"><img src="fotos_hero/web/estudio-01.jpg" alt="Estúdio vazio" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/estudio-02.jpg" alt="Wide arquitectural" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/estudio-03.jpg" alt="Viewfinder conceptual" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/set-03.jpg" alt="Cabos e ligações" loading="lazy"></div>
+      <div class="foto"><img src="estudio-01.jpg" alt="Estúdio vazio" loading="lazy"></div>
+      <div class="foto"><img src="estudio-02.jpg" alt="Wide arquitectural" loading="lazy"></div>
+      <div class="foto"><img src="estudio-03.jpg" alt="Viewfinder conceptual" loading="lazy"></div>
+      <div class="foto"><img src="set-03.jpg" alt="Cabos e ligações" loading="lazy"></div>
     </div>
   </div>
- 
+
   <div class="subseccao">
     <div class="subseccao-header">
       <div class="subseccao-titulo">Bastidores</div>
       <div class="subseccao-desc">Iluminação · preparação · sessão · entre takes</div>
     </div>
     <div class="gal gal-mosaico-6">
-      <div class="foto x1"><img src="fotos_hero/web/sessao-01.jpg" alt="Sessão" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/set-01.jpg" alt="Ajuste de luz" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/set-02.jpg" alt="Direcção" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/bts-04.jpg" alt="Maquilhagem" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/bts-03.jpg" alt="Detalhe" loading="lazy"></div>
-      <div class="foto"><img src="fotos_hero/web/sessao-04.jpg" alt="Retrato" loading="lazy"></div>
+      <div class="foto x1"><img src="sessao-01.jpg" alt="Sessão" loading="lazy"></div>
+      <div class="foto"><img src="set-01.jpg" alt="Ajuste de luz" loading="lazy"></div>
+      <div class="foto"><img src="set-02.jpg" alt="Direcção" loading="lazy"></div>
+      <div class="foto"><img src="bts-04.jpg" alt="Maquilhagem" loading="lazy"></div>
+      <div class="foto"><img src="bts-03.jpg" alt="Detalhe" loading="lazy"></div>
+      <div class="foto"><img src="sessao-04.jpg" alt="Retrato" loading="lazy"></div>
     </div>
   </div>
 </section>
- 
-<!-- 02 — COMO FUNCIONA -->
+
 <section class="secao" id="funciona">
   <div class="secao-num">02 — Como Funciona</div>
   <h2 class="secao-titulo">Quatro passos, <strong>sem surpresas</strong>.</h2>
@@ -308,19 +288,17 @@
     </div>
   </div>
 </section>
- 
-<!-- 03 — PROCESSO -->
+
 <section class="processo" id="processo">
   <div class="processo-inner">
     <div class="secao-num">03 — O Processo</div>
     <p class="processo-frase">O <em>processo</em>. A <em>energia</em>. O que acontece entre flashes — onde o trabalho acontece de verdade.</p>
     <div class="processo-imagem">
-      <img src="fotos_hero/web/processo-01.jpg" alt="Processo" loading="lazy">
+      <img src="processo-01.jpg" alt="Processo" loading="lazy">
     </div>
   </div>
 </section>
- 
-<!-- 04 — SERVIÇOS -->
+
 <section class="secao" id="servicos">
   <div class="secao-num">04 — Serviços & Preços</div>
   <h2 class="secao-titulo">Hora avulsa ou <strong>saldo de horas</strong> com 20% de desconto.</h2>
@@ -375,8 +353,7 @@
     </div>
   </div>
 </section>
- 
-<!-- 05 — RESERVAR -->
+
 <section class="secao" id="reservar">
   <div class="secao-num">05 — Reservar</div>
   <h2 class="secao-titulo">Pré-reserva com <strong>verificação de disponibilidade</strong>.</h2>
@@ -489,8 +466,7 @@
     <div id="formMsg" class="form-msg"></div>
   </form>
 </section>
- 
-<!-- 06 — PAGAMENTO -->
+
 <section class="secao" id="pagamento">
   <div class="secao-num">06 — Pagamento</div>
   <h2 class="secao-titulo">Transferência bancária <strong>até 24h antes</strong> da sessão.</h2>
@@ -501,8 +477,7 @@
     <div class="pagamento-row"><span>Comprovativo</span><span><a href="https://wa.me/244940256687" target="_blank" rel="noopener">WhatsApp +244 940 256 687</a></span></div>
   </div>
 </section>
- 
-<!-- 07 — CONTACTO -->
+
 <section class="secao" id="contacto">
   <div class="secao-num">07 — Contacto & Redes</div>
   <h2 class="secao-titulo">Onde nos <strong>encontras</strong>.</h2>
@@ -521,23 +496,20 @@
     </a>
   </div>
 </section>
- 
+
 <footer>
   UNU Studios · Rua das Palmeirinhas nº31, Cabolombo, Patriota, Luanda<br>
   ELLT Comércio e Prestação de Serviços · NIF 5001671227<br>
   © 2026 — Todos os direitos reservados
 </footer>
- 
+
 <script>
-// ============================================================
-// SISTEMA DE DISPONIBILIDADE (lê do webhook do Apps Script)
-// ============================================================
 const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzBe8TXvm4tjt3EHQz_RZaBTlv4q3adcKwxgIR9wSlaefQfKD05V7qhWf67XotwHQcX/exec";
 const BUFFER_MIN = 30;
 let intervalos = {};
- 
+
 const todosHorarios = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
- 
+
 async function carregarDisponibilidade() {
   try {
     const r = await fetch(WEBHOOK_URL + "?action=disponibilidade");
@@ -546,7 +518,7 @@ async function carregarDisponibilidade() {
   } catch(e) { console.warn("Disponibilidade indisponível:", e); }
 }
 carregarDisponibilidade();
- 
+
 function verificarSlot(dataISO, horaStr, duracaoHoras) {
   const [h, m] = horaStr.split(":").map(Number);
   const inicioMin = h*60 + (m||0);
@@ -566,7 +538,7 @@ function verificarSlot(dataISO, horaStr, duracaoHoras) {
   }
   return null;
 }
- 
+
 function atualizarHorarios() {
   const data = document.getElementById('data').value;
   const duracao = parseFloat(document.getElementById('duracao').value) || 0;
@@ -602,16 +574,16 @@ function atualizarHorarios() {
     if (!algum) select.innerHTML = '<option value="">Sem horários disponíveis nesta data</option>';
   });
 }
- 
+
 function toggleFatura() {
   document.getElementById('faturaCampos').style.display = document.getElementById('fatura').value === 'Sim' ? 'block' : 'none';
 }
- 
+
 async function copiar(texto) {
   try { await navigator.clipboard.writeText(texto); alert('Copiado: ' + texto); }
   catch(e) { alert('Copia manualmente: ' + texto); }
 }
- 
+
 async function enviarReserva(e) {
   e.preventDefault();
   const form = e.target;
@@ -619,10 +591,10 @@ async function enviarReserva(e) {
   const btn = form.querySelector('button[type=submit]');
   btn.disabled = true; btn.textContent = 'A enviar...';
   msg.classList.remove('show', 'error');
- 
+
   const dados = {};
   new FormData(form).forEach((v, k) => dados[k] = v);
- 
+
   try {
     await fetch(WEBHOOK_URL, {
       method: 'POST', mode: 'no-cors',
@@ -641,10 +613,9 @@ async function enviarReserva(e) {
     btn.textContent = 'Tentar novamente';
   }
 }
- 
-// Min date = today
+
 document.getElementById('data').min = new Date().toISOString().split('T')[0];
 </script>
- 
+
 </body>
 </html>
