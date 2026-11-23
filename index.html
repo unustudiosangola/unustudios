@@ -598,7 +598,7 @@
   <div class="hero-left">
     <p class="hero-label">Estúdio Criativo · Luanda, Angola</p>
     <h1 class="hero-title">Espaço para<br>criar <em>sem</em><br>limites.</h1>
-    <p class="hero-desc">Fotografia, vídeo e expressão artística. Um espaço construído para criadores, artistas e marcas que levam a imagem a sério.</p>
+    <p class="hero-desc">Aluguer de estúdio para sessões fotográficas, vídeos, workshops e produções.</p>
     <a href="#reservar" class="cta-btn">
       Reservar Agora
       <span class="arrow">→</span>
@@ -1048,11 +1048,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!dataISO) return;
     const select = document.getElementById('timeSelect');
     const duracao = parseInt(document.getElementById('durationSelect').value) || 1;
+    // Só horas certas (já não se reserva à meia hora)
     const todosHorarios = [
-      '08:00','08:30','09:00','09:30','10:00','10:30',
-      '11:00','11:30','12:00','12:30','13:00','13:30',
-      '14:00','14:30','15:00','15:30','16:00','16:30',
-      '17:00','17:30','18:00'
+      '08:00','09:00','10:00','11:00','12:00','13:00',
+      '14:00','15:00','16:00','17:00','18:00'
     ];
 
     // Verificar se é domingo (day = 0)
