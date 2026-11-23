@@ -927,7 +927,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const dateInput = document.getElementById('dateInput');
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  dateInput.min = tomorrow.toISOString().split('T')[0];
+  dateInput.min = tomorrow.getFullYear() + '-' + String(tomorrow.getMonth() + 1).padStart(2, '0') + '-' + String(tomorrow.getDate()).padStart(2, '0');
 
   // Adicionar listeners para calcTotal
   document.getElementById('serviceSelect').addEventListener('change', calcTotal);
@@ -1062,6 +1062,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Domingo fecha às 17h; outros dias fecham às 19h
     const fechoMin = ehDomingo ? 17 * 60 : 19 * 60;
 
+    const horaAnterior = select.value;   // não perder a hora que o cliente já escolheu
     select.innerHTML = '<option value="">Seleccionar horário...</option>';
 
     let algumDisponivel = false;
@@ -1101,6 +1102,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!algumDisponivel) {
       select.innerHTML = '<option value="">Sem horários disponíveis para ' + duracao + 'h nesta data</option>';
     }
+    // Repõe a hora escolhida se continuar livre; se deixou de estar, avisa
+    if (horaAnterior) {
+      const opt = [...select.options].find(o => o.value === horaAnterior);
+      if (opt && !opt.disabled) {
+        select.value = horaAnterior;
+      } else {
+        select.value = '';
+        marcarErro('timeSelect');
+      }
+    }
+  }
+
+  function marcarErro(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.borderBottomColor = '#C0392B';
+    setTimeout(() => el.style.borderBottomColor = '', 2500);
   }
 
   function validarDisponibilidade() {
@@ -1142,13 +1160,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validação básica
     if (!nome || !telefone || !data) {
-      [['inputNome', nome], ['inputTelefone', telefone], ['dateInput', data]].forEach(([id, val]) => {
-        if (!val) {
-          const el = document.getElementById(id);
-          el.style.borderBottomColor = '#C0392B';
-          setTimeout(() => el.style.borderBottomColor = '', 2000);
-        }
-      });
+      const falta = [['inputNome', nome, 'o nome'], ['inputTelefone', telefone, 'o WhatsApp'], ['dateInput', data, 'a data']].filter(x => !x[1]);
+      falta.forEach(([id]) => marcarErro(id));
+      document.getElementById(falta[0][0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      alert('Falta preencher ' + falta.map(x => x[2]).join(', ') + '.');
+      return;
+    }
+
+    // Horário e duração são obrigatórios
+    if (!duracao || !horario) {
+      if (!duracao) marcarErro('durationSelect');
+      if (!horario) marcarErro('timeSelect');
+      alert(!duracao && !horario ? 'Escolha a duração e o horário da sessão.'
+          : (!duracao ? 'Escolha a duração da sessão.' : 'Escolha o horário da sessão.'));
       return;
     }
 
